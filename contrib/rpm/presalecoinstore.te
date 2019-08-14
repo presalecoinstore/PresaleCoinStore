@@ -1,0 +1,81 @@
+policy_module(presalecoinstore, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type presalecoinstore_t;
+type presalecoinstore_exec_t;
+init_daemon_domain(presalecoinstore_t, presalecoinstore_exec_t)
+
+permissive presalecoinstore_t;
+
+type presalecoinstore_initrc_exec_t;
+init_script_file(presalecoinstore_initrc_exec_t)
+
+type presalecoinstore_conf_t;
+files_type(presalecoinstore_conf_t)
+
+type presalecoinstore_var_lib_t;
+files_type(presalecoinstore_var_lib_t)
+
+type presalecoinstore_var_run_t;
+files_type(presalecoinstore_var_run_t)
+
+type presalecoinstore_port_t;
+corenet_port(presalecoinstore_port_t)
+
+########################################
+#
+# presalecoinstore local policy
+#
+allow presalecoinstore_t self:process { fork };
+
+allow presalecoinstore_t self:fifo_file rw_fifo_file_perms;
+allow presalecoinstore_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(presalecoinstore_t, presalecoinstore_conf_t, presalecoinstore_conf_t)
+manage_files_pattern(presalecoinstore_t, presalecoinstore_conf_t, presalecoinstore_conf_t)
+
+manage_dirs_pattern(presalecoinstore_t, presalecoinstore_var_lib_t, presalecoinstore_var_lib_t)
+manage_files_pattern(presalecoinstore_t, presalecoinstore_var_lib_t, presalecoinstore_var_lib_t)
+files_var_lib_filetrans(presalecoinstore_t, presalecoinstore_var_lib_t, { dir file })
+
+manage_dirs_pattern(presalecoinstore_t, presalecoinstore_var_run_t, presalecoinstore_var_run_t)
+manage_files_pattern(presalecoinstore_t, presalecoinstore_var_run_t, presalecoinstore_var_run_t)
+
+sysnet_dns_name_resolve(presalecoinstore_t)
+corenet_all_recvfrom_unlabeled(presalecoinstore_t)
+
+allow presalecoinstore_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(presalecoinstore_t)
+corenet_tcp_sendrecv_generic_node(presalecoinstore_t)
+corenet_tcp_sendrecv_all_ports(presalecoinstore_t)
+corenet_tcp_bind_generic_node(presalecoinstore_t)
+
+gen_require(`
+    type presalecoinstore_port_t;
+')
+allow presalecoinstore_t presalecoinstore_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type presalecoinstore_port_t;
+')
+allow presalecoinstore_t presalecoinstore_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(presalecoinstore_t)
+
+files_read_etc_files(presalecoinstore_t)
+
+miscfiles_read_localization(presalecoinstore_t)
+
+sysnet_dns_name_resolve(presalecoinstore_t)
+
+allow presalecoinstore_t presalecoinstore_exec_t:file execute_no_trans;
+allow presalecoinstore_t self:process setsched;
+corecmd_exec_ls(presalecoinstore_t)
+corenet_tcp_connect_http_port(presalecoinstore_t)
+dev_read_urand(presalecoinstore_t)
+fs_getattr_xattr_fs(presalecoinstore_t)
+kernel_read_system_state(presalecoinstore_t)

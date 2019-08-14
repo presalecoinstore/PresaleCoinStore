@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=PreSaleCoinStore Core
+Comment=PreSaleCoinStore P2P Cryptocurrency
+Comment[fr]=PreSaleCoinStore, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=PreSaleCoinStore, eşten eşe kriptografik sanal para birimi
+Exec=presalecoinstore-qt %u
+Terminal=false
+Type=Application
+Icon=presalecoinstore128
+MimeType=x-scheme-handler/presalecoinstore;
+Categories=Office;Finance;
+StartupWMClass=Pivx-qt

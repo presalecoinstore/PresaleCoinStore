@@ -1,0 +1,8 @@
+/usr/bin/presalecoinstore-cli		--	gen_context(system_u:object_r:presalecoinstore_exec_t,s0)
+/usr/sbin/presalecoinstored		--	gen_context(system_u:object_r:presalecoinstore_exec_t,s0)
+/usr/lib(64)?/presalecoinstore/presalecoinstored		--	gen_context(system_u:object_r:presalecoinstore_exec_t,s0)
+
+/etc/presalecoinstore(/.*)?		gen_context(system_u:object_r:presalecoinstore_conf_t,s0)
+/var/lib/presalecoinstore(/.*)?		gen_context(system_u:object_r:presalecoinstore_var_lib_t,s0)
+
+(/var)?/run/presalecoinstored(/.*)?   gen_context(system_u:object_r:presalecoinstore_var_run_t,s0)

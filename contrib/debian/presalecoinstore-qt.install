@@ -1,0 +1,6 @@
+usr/local/bin/presalecoinstore-qt usr/bin
+share/pixmaps/presalecoinstore32.xpm usr/share/pixmaps
+share/pixmaps/presalecoinstore16.xpm usr/share/pixmaps
+share/pixmaps/presalecoinstore128.png usr/share/pixmaps
+debian/presalecoinstore-qt.desktop usr/share/applications
+debian/presalecoinstore-qt.protocol usr/share/kde4/services/
